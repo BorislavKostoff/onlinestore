@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from product.models import Product
 from order.models import Order
 from .serializers import ProductSerializer, OrderSerializer
-from rest_framework.pagination import PageNumberPagination
+from .pagination import CustomPagination
 
 
 @api_view(['GET'])
@@ -28,7 +28,7 @@ def addOrder(request):
 
 @api_view(['GET'])
 def orderStats(request):
-    paginator = PageNumberPagination()
+    paginator = CustomPagination()
     paginator.page_size = 3
     orders = Order.objects.all()
     paginated_orders = paginator.paginate_queryset(orders, request)
